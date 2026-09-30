@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+    </marker>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111111"/>
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888888"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: Pretendard, 'Noto Sans KR', 'Malgun Gothic', sans-serif; fill: #111111; }
+    .title { font-size: 26px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #666666; }
+    .h { font-size: 18px; font-weight: 700; }
+    .hs { font-size: 12px; fill: #666666; }
+    .item { font-size: 14px; font-weight: 600; }
+    .cls { font-size: 11px; fill: #777777; font-family: Consolas, 'Courier New', monospace; }
+    .note { font-size: 12px; }
+    .accent { fill: #2563EB; font-weight: 700; font-size: 14px; }
+    .mono { font-family: Consolas, 'Courier New', monospace; font-size: 12px; }
+  </style>
+
+  <rect x="0" y="0" width="1280" height="760" fill="#FFFFFF"/>
+
+  <!-- 제목 -->
+  <text x="40" y="54" class="title">PressureMap 시스템 구성도</text>
+  <text x="40" y="80" class="sub">가상 압력 센서 패드 → TCP 통신 → 모니터링 프로그램</text>
+
+  <!-- 범례 -->
+  <line x1="960" y1="50" x2="1000" y2="50" stroke="#2563EB" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <text x="1010" y="54" class="note">데이터 흐름</text>
+  <line x1="1100" y1="50" x2="1140" y2="50" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrowGray)"/>
+  <text x="1150" y="54" class="note">참조</text>
+
+  <!-- 사용자 -->
+  <rect x="40" y="263" width="110" height="90" rx="10" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+  <text x="95" y="302" class="item" text-anchor="middle">사용자</text>
+  <text x="95" y="326" class="hs" text-anchor="middle">마우스 입력</text>
+  <line x1="150" y1="308" x2="196" y2="308" stroke="#2563EB" stroke-width="3" marker-end="url(#arrowBlue)"/>
+
+  <!-- SensorPad -->
+  <rect x="200" y="120" width="320" height="420" rx="14" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+  <text x="224" y="156" class="h">SensorPad</text>
+  <text x="224" y="178" class="hs">가상 센서 패드 · TCP 클라이언트</text>
+
+  <rect x="224" y="200" width="272" height="64" rx="8" fill="#F4F4F5"/>
+  <text x="240" y="228" class="item">화면·마우스 입력</text>
+  <text x="240" y="249" class="cls">PadForm</text>
+
+  <rect x="224" y="276" width="272" height="64" rx="8" fill="#F4F4F5"/>
+  <text x="240" y="304" class="item">가상 압력 생성</text>
+  <text x="240" y="325" class="cls">PressureModel</text>
+
+  <rect x="224" y="352" width="272" height="64" rx="8" fill="#F4F4F5"/>
+  <text x="240" y="380" class="item">데이터 전송·재접속</text>
+  <text x="240" y="401" class="cls">FrameSender</text>
+
+  <rect x="224" y="448" width="272" height="64" rx="8" fill="none" stroke="#999999" stroke-dasharray="5 4"/>
+  <text x="240" y="473" class="note" font-weight="700">실제 센서 아님</text>
+  <text x="240" y="494" class="note">마우스 위치·누른 시간 → 압력값</text>
+
+  <!-- TCP 통신 -->
+  <line x1="520" y1="308" x2="760" y2="308" stroke="#2563EB" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <text x="630" y="276" class="accent" text-anchor="middle">TCP 127.0.0.1:5000</text>
+  <text x="630" y="295" class="note" text-anchor="middle">초당 10프레임</text>
+  <text x="630" y="334" class="mono" text-anchor="middle">F,순번,행수,열수,값…\n</text>
+  <text x="630" y="353" class="hs" text-anchor="middle">한 프레임 = 한 줄 · 16×16 · 값 0~1000</text>
+
+  <!-- PressureMonitor -->
+  <rect x="740" y="120" width="500" height="420" rx="14" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+  <text x="764" y="156" class="h">PressureMonitor</text>
+  <text x="764" y="178" class="hs">모니터링 프로그램 · TCP 서버</text>
+
+  <rect x="764" y="200" width="452" height="56" rx="8" fill="#F4F4F5"/>
+  <text x="780" y="224" class="item">화면·연결 조정</text>
+  <text x="780" y="243" class="cls">MonitorForm</text>
+
+  <rect x="764" y="276" width="452" height="64" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="780" y="304" class="item">데이터 수신·줄 단위 복원</text>
+  <text x="780" y="325" class="cls">FrameReceiver</text>
+
+  <line x1="834" y1="340" x2="834" y2="378" stroke="#111111" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+  <line x1="990" y1="340" x2="990" y2="378" stroke="#111111" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+  <line x1="1146" y1="340" x2="1146" y2="378" stroke="#111111" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+
+  <rect x="764" y="380" width="140" height="72" rx="8" fill="#F4F4F5"/>
+  <text x="834" y="412" class="item" text-anchor="middle">분석·양불 판정</text>
+  <text x="834" y="433" class="cls" text-anchor="middle">Analyzer</text>
+
+  <rect x="920" y="380" width="140" height="72" rx="8" fill="#F4F4F5"/>
+  <text x="990" y="412" class="item" text-anchor="middle">히트맵 표시</text>
+  <text x="990" y="433" class="cls" text-anchor="middle">HeatmapRenderer</text>
+
+  <rect x="1076" y="380" width="140" height="72" rx="8" fill="#F4F4F5"/>
+  <text x="1146" y="412" class="item" text-anchor="middle">CSV 저장</text>
+  <text x="1146" y="433" class="cls" text-anchor="middle">CsvRecorder</text>
+
+  <line x1="1146" y1="452" x2="1146" y2="482" stroke="#111111" stroke-width="1.5" marker-end="url(#arrowDark)"/>
+  <rect x="1096" y="484" width="100" height="30" rx="6" fill="none" stroke="#999999" stroke-dasharray="5 4"/>
+  <text x="1146" y="504" class="note" text-anchor="middle">.csv 파일</text>
+
+  <!-- 참조 선 -->
+  <line x1="360" y1="540" x2="360" y2="616" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrowGray)"/>
+  <text x="372" y="584" class="hs">참조</text>
+  <line x1="990" y1="540" x2="990" y2="616" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrowGray)"/>
+  <text x="1002" y="584" class="hs">참조</text>
+
+  <!-- PressureMap.Common -->
+  <rect x="200" y="620" width="1040" height="100" rx="14" fill="#F4F4F5" stroke="#111111" stroke-width="1.5"/>
+  <text x="224" y="660" class="h">PressureMap.Common</text>
+  <text x="224" y="684" class="hs">공통 라이브러리 · 두 프로그램이 함께 참조</text>
+
+  <rect x="560" y="640" width="210" height="60" rx="8" fill="#FFFFFF" stroke="#D4D4D8"/>
+  <text x="576" y="665" class="item">공통 설정</text>
+  <text x="576" y="686" class="cls">Config</text>
+
+  <rect x="790" y="640" width="210" height="60" rx="8" fill="#FFFFFF" stroke="#D4D4D8"/>
+  <text x="806" y="665" class="item">데이터 형식</text>
+  <text x="806" y="686" class="cls">Frame</text>
+
+  <rect x="1010" y="640" width="210" height="60" rx="8" fill="#FFFFFF" stroke="#D4D4D8"/>
+  <text x="1026" y="665" class="item">메시지 변환</text>
+  <text x="1026" y="686" class="cls">FrameProtocol</text>
+</svg>
